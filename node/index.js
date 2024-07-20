@@ -17,9 +17,22 @@ const config = {
 
 
 
+
+
 app.get('/', (req, res) => {
   const connection = mysql.createConnection(config);
+
+  const createTableQuery = `
+  CREATE TABLE IF NOT EXISTS tb_pessoas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL
+  )`;
+
+  connection.query(createTableQuery)
+
+
   const random = Math.floor(Math.random() * 10);
+
   const insertQuery = `insert into tb_pessoas (nome) values ("Pessoa ${random.toString()}")` ;
   connection.query(insertQuery)
 

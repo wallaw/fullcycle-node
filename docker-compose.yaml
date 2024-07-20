@@ -46,8 +46,8 @@ services:
   node-fc:
     container_name: node-fc
     build: ./node
-    volumes:
-      - ./node:/usr/src/app
+    # volumes:
+    #   - ./node:/usr/src/app
     ports:
       - "3000:3000"
     depends_on:
