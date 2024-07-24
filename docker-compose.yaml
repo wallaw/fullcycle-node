@@ -13,20 +13,7 @@ services:
     networks:
       - desafio-network
 
-  # node:
-  #   image: node
-  #   networks:
-  #     - desafio-network
-  #   ports:
-  #     - "3000:3000"
-  #   volumes:
-  #     - ./node:/usr/src/app
-  #   tty: true
-  #   command: node /usr/src/app/index.js
-  #   command: node /usr/src/app/index.js
-
-
-  mysql:
+  database:
     container_name: mysql
     image: mysql:latest
     command: --innodb-use-native-aio=0 #?
@@ -41,17 +28,24 @@ services:
 
     networks:
       - desafio-network
-    
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
   node-fc:
     container_name: node-fc
     build: ./node
     ports:
       - "3000:3000"
+    volumes:
+      - ./node:/app #Desnecessario, mas tudo bem.
     networks:
       - desafio-network
     depends_on:
-      mysql:
+      database:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/"]

@@ -6,7 +6,7 @@ const port = 3000;
 
 // Configurações do banco de dados
 const config = {
-  host: 'mysql',
+  host: 'database',
   user: 'root',
   password: '1234',
   database: 'desafio',
