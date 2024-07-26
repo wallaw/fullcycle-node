@@ -40,8 +40,6 @@ services:
     build: ./node
     ports:
       - "3000:3000"
-    volumes:
-      - ./node:/app #Desnecessario, mas tudo bem.
     networks:
       - desafio-network
     depends_on:
